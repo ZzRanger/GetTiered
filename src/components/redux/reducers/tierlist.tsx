@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuid } from "uuid";
+
+
 /**
  * Data type for tierlists
  */
@@ -72,10 +74,10 @@ const createNewTierlist = (name: string): TierlistObj => {
       CategoryObj(uuid(), "D", []),
     ],
     unsorted: CategoryObj(uuid(), "empty", [
-      ItemObj(uuid(), "Test", ""),
-      ItemObj(uuid(), "Test2", ""),
-      ItemObj(uuid(), "Test3", ""),
-      ItemObj(uuid(), "Test4", ""),
+      ItemObj(uuid(), "/img/default1.jpeg", ""),
+      ItemObj(uuid(), "/img/default2.jpeg", ""),
+      ItemObj(uuid(), "/img/default3.jpeg", ""),
+      ItemObj(uuid(), "/img/default4.jpeg", ""),
     ]),
     id: uuid(),
   };
@@ -92,10 +94,10 @@ const initialState: TierlistMap = {
       CategoryObj(uuid(), "D", []),
     ],
     unsorted: CategoryObj(uuid(), "empty", [
-      ItemObj(uuid(), "Test", ""),
-      ItemObj(uuid(), "Test2", ""),
-      ItemObj(uuid(), "Test3", ""),
-      ItemObj(uuid(), "Test4", ""),
+      ItemObj(uuid(), "/default1.jpeg", "hi"),
+      ItemObj(uuid(), "/default2.jpeg", "hi2"),
+      ItemObj(uuid(), "/default3.jpeg", "hi3"),
+      ItemObj(uuid(), "/default4.jpeg", "hi4"),
     ]),
     id: uuid(),
   },
