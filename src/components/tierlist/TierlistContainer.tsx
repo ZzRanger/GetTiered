@@ -45,29 +45,30 @@ export default function TierlistContainer() {
     (state: RootState) => state.tierlistStore[activeTierlist]
   );
 
-  const { name, categories, unsorted, id } = tierlistData;
-
-  // TODO: Create better way to filter Items into categories
+  const { name,categories,unsorted,id } = tierlistData;
 
   return (
-    <div className="h-full">
-      {/* <Header /> */}
-      <div> Get Tiered </div>
-      <hr />
-      <div> {name} </div>
+    <div className="py-10 px-20">
+      
+    
+      <div className="text-6xl"> {name} </div>
       <div className="">
         {ready && (
           <DragDropContext onDragEnd={onDragEnd}>
-            {categories.map((elm, index) => (
-              // TODO: Implement CardContainer
-              // Pass in Item props
-              <div key={elm.id}>
+           
+            {categories.map((elm,index) => (
+              <>
+              <div key={elm.id} className="flex flex-row bg-gray-300">
+              <div className="text-5xl flex text-black w-24 h-24  justify-center items-center bg-white">{elm.name}</div> 
                 <CardContainer name={elm.name} id={elm.id} items={elm.content} />
-              </div>
+                </div>
+              </>
+              
             ))}
+            {/* Contains unsorted cards */}
             <div key={unsorted.id}>
               <CardContainer name={unsorted.name }id={unsorted.id} items={unsorted.content} />{" "}
-              {/* Contains unsorted cards */}
+              
             </div>
           </DragDropContext>
         )}

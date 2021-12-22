@@ -15,18 +15,21 @@ export type Props = {
 };
 export default function CardContainer({ name, id, items }: Props) {
   return (
-    <div className="h-20 border-4">
+    <div className="h-full w-full border-t-2" key={id}>
+      
       <Droppable droppableId={id} direction="horizontal">
         {(provided,snapshot) => (
           
-          <div className="flex flex-row" ref={provided.innerRef} {...provided.droppableProps}>
-            <h2> {name}</h2>
+          <div className="flex flex-row items-center bg-yellow-700" ref={provided.innerRef} {...provided.droppableProps}>
+          
+           
             {items.map((item,index) => (
               <div key={index}>
                 <TierlistCard item={item} key={item.id} index={index} />
                 </div>
             ))}
             {provided.placeholder}
+           
           </div>
         )}
       </Droppable>
