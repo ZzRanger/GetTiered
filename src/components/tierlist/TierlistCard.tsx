@@ -6,12 +6,12 @@ export type Props = {
     index: number
 }
 export default function TierlistCard({ item, index }: Props) {
-    // console.log("HIIII", item, index);
     return (
         <Draggable draggableId={item.id} index={index}>
             {(provided,snapshot) => (
                 <div ref={provided.innerRef} {...provided.draggableProps}{...provided.dragHandleProps}>
-                    <h4>{item.URL}</h4>
+                    <img width={100} height={100} src={item.URL} alt={item.caption} />
+                    
                 </div>
             )}
         </Draggable>

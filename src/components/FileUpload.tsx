@@ -1,8 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addItems } from "./redux/reducers/tierlist";
+import { RootState } from "./redux/store";
 
 const FileUploader = (props: any) => {
+  const dispatch = useDispatch();
 	const [selectedFile, setSelectedFile] = useState<string[]>([]);
-	const [isFilePicked, setIsFilePicked] = useState(false);
+  const [isFilePicked,setIsFilePicked] = useState(false);
+  const activeTierlist = useSelector(
+    (state: RootState) => state.currentSession.active
+  );
 
   const changeHandler = (event: any) => {
     const files: string[] = [];
@@ -13,7 +20,8 @@ const FileUploader = (props: any) => {
       console.log(event.target.files[i]);
     }
     setSelectedFile(files);
-		setIsFilePicked(true);
+    setIsFilePicked(true);
+    dispatch(addItems({active: activeTierlist, images:files}))
 	};
 
 	const handleSubmission = () => {
@@ -23,9 +31,7 @@ const FileUploader = (props: any) => {
   return (
     <>
       <input type="file" name="file" onChange={changeHandler} multiple />
-      <div>
-        <button onClick={handleSubmission}>Submit</button>
-      </div>
+      
       {isFilePicked && (
           selectedFile.map((value, index) => 
           <img key={index} width={100} height={100} className="preview" src={value} alt="ff" />
