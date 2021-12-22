@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import themeModeReducer from './reducers/darkMode';
 import tierlistStoreReducer from './reducers/tierlist';
 import currentSessionReducer from './reducers/currentSession';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 export const store = configureStore({
   reducer: {
@@ -9,6 +10,7 @@ export const store = configureStore({
     tierlistStore: tierlistStoreReducer,
     currentSession: currentSessionReducer,
   },
+  devTools:true
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

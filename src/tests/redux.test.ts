@@ -1,5 +1,5 @@
 import tierlistReducer, {
-  addImages,
+  addItems,
   updateImageTier,
   deleteImages,
   createTierlist,
@@ -18,7 +18,7 @@ test("should return the initial state", () => {
     untitled: {
       name: "untitled",
       content: [],
-      id: 0,
+      id: "0",
       categories: ["S", "A", "B", "C", "D"],
     },
   });
@@ -27,7 +27,7 @@ test("should return the initial state", () => {
 test("test tierlist reducer actions", () => {
   let state = tierlistReducer(
     undefined,
-    addImages({ active: "untitled", images: ["test1", "test2"] })
+    addItems({ active: "untitled", images: ["test1", "test2"] })
   );
 
   state = tierlistReducer(
@@ -51,10 +51,10 @@ test("test tierlist reducer actions", () => {
     untitled: {
       name: "untitled",
       content: [
-        { id: 0, URL: "test1", caption: "", category: "S" },
-        { id: 1, URL: "test2", caption: "", category: "B" },
+        { id: "0", URL: "test1", caption: "", category: "S" },
+        { id: "1", URL: "test2", caption: "", category: "B" },
       ],
-      id: 0,
+      id: "0",
       categories: ["S", "A", "B", "C", "D"],
     },
   });
@@ -66,22 +66,22 @@ test("test tierlist reducer actions", () => {
     untitled: {
       name: "untitled",
       content: [
-        { id: 0, URL: "test1", caption: "", category: "S" },
-        { id: 1, URL: "test2", caption: "", category: "B" },
+        { id: "0", URL: "test1", caption: "", category: "S" },
+        { id: "1", URL: "test2", caption: "", category: "B" },
       ],
-      id: 0,
+      id: "0",
       categories: ["S", "A", "B", "C", "D"],
     },
     untitled1: {
       name: "untitled1",
       content: [],
-      id: 1,
+      id: "1",
       categories: ["S", "A", "B", "C", "D"],
     },
     untitled2: {
       name: "untitled2",
       content: [],
-      id: 2,
+      id: "2",
       categories: ["S", "A", "B", "C", "D"],
     },
   });
@@ -91,7 +91,7 @@ test("test tierlist reducer actions", () => {
   );
   state = tierlistReducer(
     state,
-    addImages({
+    addItems({
       active: "Boba",
       images: ["Green Tea", "Oolong Tea", "Strawberry Tea", "White Tea"],
     })
@@ -102,27 +102,27 @@ test("test tierlist reducer actions", () => {
     untitled: {
       name: "untitled",
       content: [
-        { id: 0, URL: "test1", caption: "", category: "S" },
-        { id: 1, URL: "test2", caption: "", category: "B" },
+        { id: "0", URL: "test1", caption: "", category: "S" },
+        { id: "1", URL: "test2", caption: "", category: "B" },
       ],
-      id: 0,
+      id: "0",
       categories: ["S", "A", "B", "C", "D"],
     },
     Boba: {
       name: "Boba",
       content: [
-        { id: 0, URL: "Green Tea", caption: "", category: "" },
-        { id: 1, URL: "Oolong Tea", caption: "", category: "" },
-        { id: 2, URL: "Strawberry Tea", caption: "", category: "" },
-        { id: 3, URL: "White Tea", caption: "", category: "" },
+        { id: "0", URL: "Green Tea", caption: "", category: "" },
+        { id: "1", URL: "Oolong Tea", caption: "", category: "" },
+        { id: "2", URL: "Strawberry Tea", caption: "", category: "" },
+        { id: "3", URL: "White Tea", caption: "", category: "" },
       ],
-      id: 1,
+      id: "1",
       categories: ["S", "A", "B", "C", "D"],
     },
     untitled2: {
       name: "untitled2",
       content: [],
-      id: 2,
+      id: "2",
       categories: ["S", "A", "B", "C", "D"],
     },
   });
@@ -134,25 +134,25 @@ test("test tierlist reducer actions", () => {
     untitled: {
       name: "untitled",
       content: [
-        { id: 0, URL: "test1", caption: "", category: "S" },
-        { id: 1, URL: "test2", caption: "", category: "B" },
+        { id: "0", URL: "test1", caption: "", category: "S" },
+        { id: "1", URL: "test2", caption: "", category: "B" },
       ],
-      id: 0,
+      id: "0",
       categories: ["S", "A", "B", "C", "D"],
     },
     Boba: {
       name: "Boba",
       content: [
-        { id: 1, URL: "Oolong Tea", caption: "", category: "" },
-        { id: 3, URL: "White Tea", caption: "", category: "" },
+        { id: "1", URL: "Oolong Tea", caption: "", category: "" },
+        { id: "3", URL: "White Tea", caption: "", category: "" },
       ],
-      id: 1,
+      id: "1",
       categories: ["S", "A", "B", "C", "D"],
     },
     untitled2: {
       name: "untitled2",
       content: [],
-      id: 2,
+      id: "2",
       categories: ["S", "A", "B", "C", "D"],
     },
   });
