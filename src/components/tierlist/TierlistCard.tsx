@@ -12,7 +12,7 @@ export default function TierlistCard({ item,index }: Props) {
         <Draggable draggableId={item.id} index={index}>
             {(provided,snapshot) => (
                 <div ref={provided.innerRef} {...provided.draggableProps}{...provided.dragHandleProps}>
-                    <Image className="m-0 p-0" width={88} height={88} src={item.URL} alt={"ffff"} />
+                    <Image className="" width={80} height={80} src={item.URL} alt={"ffff"} />
                 </div>
             )}
         </Draggable>

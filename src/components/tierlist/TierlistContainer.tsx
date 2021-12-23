@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import CardContainer from "./CardContainer";
 import { updateImageTier } from "../redux/reducers/tierlist";
+import FileUploader from "../FileUpload";
+import MyDropzone from "../MyDropzone";
 export default function TierlistContainer() {
   const [ready, setReady] = useState(false);
   const dispatch = useDispatch();
@@ -45,33 +47,47 @@ export default function TierlistContainer() {
     (state: RootState) => state.tierlistStore[activeTierlist]
   );
 
-  const { name,categories,unsorted,id } = tierlistData;
+  const { name, categories, unsorted, id } = tierlistData;
 
   return (
-    <div className="py-10 px-20">
-      
-    
+    <div className="py-10 px-40">
       <div className="text-6xl"> {name} </div>
       <div className="">
         {ready && (
           <DragDropContext onDragEnd={onDragEnd}>
-           
-            {categories.map((elm,index) => (
+            {/* Top border of tierlist */}
+          
+              <hr className="bg-gray-700 h-0.5" />
+     
+            {categories.map((elm, index) => (
               <>
-              <div key={elm.id} className="flex flex-row bg-gray-300">
-              <div className="text-5xl flex text-black w-24 h-24  justify-center items-center bg-white">{elm.name}</div> 
-                <CardContainer name={elm.name} id={elm.id} items={elm.content} />
+                <div key={elm.id} className="flex flex-row bg-gray-300 h-20 items-center w-full">
+                  <div className="text-5xl  flex text-black w-20 h-full justify-center items-center bg-white">
+                    {elm.name}
+                  </div>
+                  <CardContainer
+                    name={elm.name}
+                    id={elm.id}
+                    items={elm.content}
+                  />
+
                 </div>
+                <hr className="bg-gray-700 h-0.5" />
               </>
-              
             ))}
             {/* Contains unsorted cards */}
-            <div key={unsorted.id}>
-              <CardContainer name={unsorted.name }id={unsorted.id} items={unsorted.content} />{" "}
-              
+            <div key={unsorted.id} className="flex flex-row items-center w-full">
+              <CardContainer
+                name={unsorted.name}
+                id={unsorted.id}
+                items={unsorted.content}
+              />{" "}
+          
+           
             </div>
           </DragDropContext>
         )}
+        <MyDropzone />
       </div>
     </div>
   );
