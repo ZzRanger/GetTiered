@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addItems } from "./redux/reducers/tierlist";
 import { RootState } from "./redux/store";
+import AddIcon from '@mui/icons-material/Add';
 
 const FileUploader = (props: any) => {
   const dispatch = useDispatch();
@@ -30,7 +31,13 @@ const FileUploader = (props: any) => {
 
   return (
     <>
-      <input type="file" name="file" onChange={changeHandler} multiple />
+      <div className="w-20 h-20 bg-white">
+        <AddIcon fontSize='inherit' className="text-6xl text-black" />
+        <input type="file" name="file" onChange={changeHandler} multiple />
+      </div>
+      
+        
+      
       
       {isFilePicked && (
           selectedFile.map((value, index) => 
