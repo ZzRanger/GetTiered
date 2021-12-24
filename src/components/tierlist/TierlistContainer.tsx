@@ -7,11 +7,14 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import CardContainer from "./CardContainer";
-import { renameTierlist,updateImageTier } from "../redux/reducers/tierlist";
+import { renameTierlist, updateImageTier } from "../redux/reducers/tierlist";
 import { changeSession } from "../redux/reducers/currentSession";
 import FileUploader from "../FileUpload";
 import MyDropzone from "../MyDropzone";
+import { getFirestore } from "@firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 export default function TierlistContainer() {
+  const db = getFirestore();
   const [ready, setReady] = useState(false);
   const dispatch = useDispatch();
 
@@ -63,16 +66,10 @@ export default function TierlistContainer() {
             renameTierlist({
               active: activeTierlist,
               rename: event.target.value,
-            }),
-            
-          )
-          dispatch(
-            changeSession(
-              event.target.value
-            )
-          )
-        }
-        }
+            })
+          );
+          dispatch(changeSession(event.target.value));
+        }}
         placeholder={"Add tierlist name"}
         spellCheck={false}
         className="bg-transparent text-6xl focus:outline-none "
