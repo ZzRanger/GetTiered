@@ -7,7 +7,8 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import CardContainer from "./CardContainer";
-import { updateImageTier } from "../redux/reducers/tierlist";
+import { renameTierlist,updateImageTier } from "../redux/reducers/tierlist";
+import { changeSession } from "../redux/reducers/currentSession";
 import FileUploader from "../FileUpload";
 import MyDropzone from "../MyDropzone";
 export default function TierlistContainer() {
@@ -20,7 +21,7 @@ export default function TierlistContainer() {
     }
   }, []);
 
-  useEffect(() => console.log(tierlistData));
+  useEffect(() => console.log(tierlistData, title));
   const onDragEnd = (DragObject: DropResult) => {
     if (DragObject.destination) {
       // TODO: Update Redux store here
@@ -48,20 +49,48 @@ export default function TierlistContainer() {
   );
 
   const { name, categories, unsorted, id } = tierlistData;
+  const [title, setTitle] = useState(name);
 
   return (
     <div className="py-10 px-40">
-      <div className="text-6xl"> {name} </div>
+      {/* <div className="text-6xl">
+        {name}
+      </div> */}
+      <input
+        type="text"
+        onBlur={(event) => {
+          dispatch(
+            renameTierlist({
+              active: activeTierlist,
+              rename: event.target.value,
+            }),
+            
+          )
+          dispatch(
+            changeSession(
+              event.target.value
+            )
+          )
+        }
+        }
+        placeholder={"Add tierlist name"}
+        spellCheck={false}
+        className="bg-transparent text-6xl focus:outline-none "
+        value={title}
+        onChange={(event) => setTitle(event.target.value)}
+      />
       <div className="">
         {ready && (
           <DragDropContext onDragEnd={onDragEnd}>
             {/* Top border of tierlist */}
-          
-              <hr className="bg-gray-700 h-0.5" />
-     
+            <hr className="bg-gray-700 h-0.5" />
+
             {categories.map((elm, index) => (
               <>
-                <div key={elm.id} className="flex flex-row bg-gray-300 h-20 items-center w-full">
+                <div
+                  key={elm.id}
+                  className="flex flex-row bg-gray-300 h-20 items-center w-full"
+                >
                   <div className="text-5xl  flex text-black w-20 h-full justify-center items-center bg-white">
                     {elm.name}
                   </div>
@@ -70,20 +99,20 @@ export default function TierlistContainer() {
                     id={elm.id}
                     items={elm.content}
                   />
-
                 </div>
                 <hr className="bg-gray-700 h-0.5" />
               </>
             ))}
             {/* Contains unsorted cards */}
-            <div key={unsorted.id} className="flex flex-row items-center w-full">
+            <div
+              key={unsorted.id}
+              className="flex flex-row items-center w-full"
+            >
               <CardContainer
                 name={unsorted.name}
                 id={unsorted.id}
                 items={unsorted.content}
               />{" "}
-          
-           
             </div>
           </DragDropContext>
         )}

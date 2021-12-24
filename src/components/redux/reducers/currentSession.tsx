@@ -5,9 +5,13 @@ export const currentSession = createSlice({
     name: "active",
     initialState,
     reducers: {
-        /* action.payload() => {current:string} */
+        /**
+         * Changes active tierlist
+         * @param state tierlist state
+         * @param action string: new name of tierlist
+         */
         changeSession: (state,action) => {
-            state.active = action.payload();
+            state.active = action.payload
         }
     }
 });
