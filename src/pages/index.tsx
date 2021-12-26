@@ -5,13 +5,16 @@ import React from "react";
 import TierlistContainer from "../components/tierlist/TierlistContainer";
 import Header from "../components/layouts/header/header";
 import Footer from "../components/layouts/Footer/footer";
+import UploadTest from "../components/UploadTest";
+import Landing from "../components/tierlist/Landing";
 // import styles from '../styles/Home.module.css'
 
 export default function Home() {
   return (
-    <div className=" bg-gradient-to-b from-indigo-500 to-black text-white">
+    <div className="">
+  
       <Header />
-      <TierlistContainer />      
+      <Landing />
       {/* <Footer /> */}
     </div>
   );
