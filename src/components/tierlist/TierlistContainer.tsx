@@ -54,28 +54,40 @@ export default function TierlistContainer() {
   const { name, categories, unsorted, id } = tierlistData;
   const [title, setTitle] = useState(name);
 
+  const saveToFirebase = () => {
+    // Save current session
+  };
+
   return (
     <div className="py-10 px-40">
-      {/* <div className="text-6xl">
-        {name}
-      </div> */}
-      <input
-        type="text"
-        onBlur={(event) => {
-          dispatch(
-            renameTierlist({
-              active: activeTierlist,
-              rename: event.target.value,
-            })
-          );
-          dispatch(changeSession(event.target.value));
-        }}
-        placeholder={"Add tierlist name"}
-        spellCheck={false}
-        className="bg-transparent text-6xl focus:outline-none "
-        value={title}
-        onChange={(event) => setTitle(event.target.value)}
-      />
+      <div className="flex flex-row justify-between">
+        <input
+          type="text"
+          onBlur={(event) => {
+            if (event.target.value !== name) {
+              dispatch(
+                renameTierlist({
+                  active: activeTierlist,
+                  rename: event.target.value,
+                })
+              );
+              dispatch(changeSession(event.target.value));
+            }
+          }}
+          placeholder={"Add tierlist name"}
+          spellCheck={false}
+          className="bg-transparent text-6xl focus:outline-none "
+          value={title}
+          onChange={(event) => setTitle(event.target.value)}
+        />
+        <button
+          className="text-4xl mb-2 bg-gray-700 rounded-2xl px-4 hover:shadow-2xl hover:bg-gray-900"
+          onClick={saveToFirebase}
+        >
+          {" "}
+          Save{" "}
+        </button>
+      </div>
       <div className="">
         {ready && (
           <DragDropContext onDragEnd={onDragEnd}>
