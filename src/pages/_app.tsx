@@ -7,6 +7,7 @@ import { store } from "../components/redux/store";
 import { Provider } from "react-redux";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "@firebase/firestore";
+import { getStorage } from "@firebase/storage";
 
 /* Set up firebase */
 const firebaseConfig = {
@@ -19,6 +20,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState<boolean>(true);
