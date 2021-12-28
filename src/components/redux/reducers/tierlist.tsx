@@ -188,11 +188,11 @@ export const tierlistStore = createSlice({
     },
     /* Action.payload contains  */
     /**
-     * Removes Items from tierlist
+     * Removes Item from tierlist
      * @param state tierlist state
      * @param action object: {active: string; id: string, category: string, index: string}
      */
-    deleteImages: (state, action) => {
+    deleteImage: (state, action) => {
       const { active, id, category, idx } = action.payload;
       const currTierlist = state[active];
       if (category !== "empty") {
@@ -213,7 +213,7 @@ export const {
   renameTierlist,
   addItems,
   updateImageTier,
-  deleteImages,
+  deleteImage,
 } = tierlistStore.actions;
 
 export default tierlistStore.reducer;

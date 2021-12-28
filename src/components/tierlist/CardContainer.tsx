@@ -15,11 +15,14 @@ export type Props = {
   id: string;
   items: Item[];
 };
+
+
+
 export default function CardContainer({ name, id, items }: Props) {
   return (
     <div className="h-full w-full -mt-px " key={id}>
       
-      <Droppable droppableId={id} direction="horizontal">
+      <Droppable droppableId={id} direction="horizontal" ignoreContainerClipping={true}>
         {(provided,snapshot) => (
           
           <div className="flex flex-row items-center " ref={provided.innerRef} {...provided.droppableProps}>

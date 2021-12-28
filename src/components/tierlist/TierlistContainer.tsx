@@ -1,18 +1,25 @@
 import { useState, useEffect } from "react";
 import {
   DragDropContext,
+  Droppable,
   DropResult,
   OnDragEndResponder,
 } from "react-beautiful-dnd";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import CardContainer from "./CardContainer";
-import { renameTierlist, updateImageTier } from "../redux/reducers/tierlist";
+import {
+  deleteImage,
+  renameTierlist,
+  updateImageTier,
+} from "../redux/reducers/tierlist";
 import { changeSession } from "../redux/reducers/currentSession";
 import FileUploader from "../FileUpload";
 import MyDropzone from "../MyDropzone";
 import { getFirestore } from "@firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
+import { Unpublished } from "@mui/icons-material";
+import DeleteIcon from "@mui/icons-material/Delete";
 export default function TierlistContainer() {
   const db = getFirestore();
   const [ready, setReady] = useState(false);
@@ -27,6 +34,16 @@ export default function TierlistContainer() {
   useEffect(() => console.log(tierlistData, title));
   const onDragEnd = (DragObject: DropResult) => {
     if (DragObject.destination) {
+      if (DragObject.destination?.droppableId === "delete") {
+        dispatch(
+          deleteImage({
+            active: activeTierlist,
+            id: DragObject.draggableId,
+            category: DragObject.source.droppableId,
+            index: DragObject.source.index,
+          })
+        );
+      }
       // TODO: Update Redux store here
       // Learn what's inside DragObject
       console.log(DragObject.destination?.droppableId);
@@ -100,7 +117,7 @@ export default function TierlistContainer() {
                   key={elm.id}
                   className="flex flex-row bg-gray-300 h-20 items-center w-full"
                 >
-                  <div className="text-5xl  flex text-black w-20 h-full justify-center items-center bg-white">
+                  <div className="text-5xl flex text-black w-20 h-full justify-center items-center bg-white">
                     {elm.name}
                   </div>
                   <CardContainer
@@ -115,13 +132,28 @@ export default function TierlistContainer() {
             {/* Contains unsorted cards */}
             <div
               key={unsorted.id}
-              className="flex flex-row items-center w-full"
+              className="flex flex-row items-center w-full h-20 "
             >
               <CardContainer
                 name={unsorted.name}
                 id={unsorted.id}
                 items={unsorted.content}
               />{" "}
+              <Droppable droppableId="delete" direction="horizontal">
+                {(provided, snapshot) => (
+                  <div
+                    className="h-20 w-16"
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                  >
+                    <div className="text-6xl">
+                      <DeleteIcon fontSize="inherit" />
+                      </div>
+                    {provided.placeholder}
+                    {/* Invisible element to keep droppable open */}
+                  </div>
+                )}
+              </Droppable>
             </div>
           </DragDropContext>
         )}
