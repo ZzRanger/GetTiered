@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  DragDropContext,
-  Droppable,
-  DropResult,
-} from "react-beautiful-dnd";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 import CardContainer from "./CardContainer";
@@ -19,6 +15,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { saveTierlist } from "../firebase/firebase";
 
 export default function TierlistContainer() {
+  const color = [
+    "bg-red-400",
+    "bg-orange-300",
+    "bg-yellow-200",
+    "bg-green-200",
+    "bg-green-400",
+  ];
+
   const db = getFirestore();
   const [ready, setReady] = useState(false);
   const dispatch = useDispatch();
@@ -44,7 +48,7 @@ export default function TierlistContainer() {
       }
       // TODO: Update Redux store here
       // Learn what's inside DragObject
-      
+
       dispatch(
         updateImageTier({
           active: activeTierlist,
@@ -119,7 +123,9 @@ export default function TierlistContainer() {
                   key={elm.id}
                   className="flex flex-row bg-gray-300 h-20 items-center w-full"
                 >
-                  <div className="text-5xl flex text-black w-20 h-full justify-center items-center bg-white">
+                  <div
+                    className={`text-5xl flex  ${color[index]} text-black w-20 h-full justify-center items-center`}
+                  >
                     {elm.name}
                   </div>
                   <CardContainer
@@ -152,7 +158,6 @@ export default function TierlistContainer() {
                       <DeleteIcon fontSize="inherit" />
                     </div>
                     {provided.placeholder}
-                    {/* Invisible element to keep droppable open */}
                   </div>
                 )}
               </Droppable>
