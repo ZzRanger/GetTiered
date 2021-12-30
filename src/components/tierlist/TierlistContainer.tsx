@@ -14,12 +14,11 @@ import {
   updateImageTier,
 } from "../redux/reducers/tierlist";
 import { changeSession } from "../redux/reducers/currentSession";
-import FileUploader from "../FileUpload";
 import MyDropzone from "../MyDropzone";
 import { getFirestore } from "@firebase/firestore";
-import { doc, setDoc } from "firebase/firestore";
-import { Unpublished } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { loadFromFirebase, saveTierlist } from "../firebase/firebase";
+
 export default function TierlistContainer() {
   const db = getFirestore();
   const [ready, setReady] = useState(false);
@@ -31,7 +30,7 @@ export default function TierlistContainer() {
     }
   }, []);
 
-  useEffect(() => console.log(tierlistData, title));
+  // useEffect(() => console.log(tierlistData, title));
   const onDragEnd = (DragObject: DropResult) => {
     if (DragObject.destination) {
       if (DragObject.destination?.droppableId === "delete") {
@@ -46,7 +45,7 @@ export default function TierlistContainer() {
       }
       // TODO: Update Redux store here
       // Learn what's inside DragObject
-      console.log(DragObject.destination?.droppableId);
+      
       dispatch(
         updateImageTier({
           active: activeTierlist,
@@ -71,8 +70,12 @@ export default function TierlistContainer() {
   const { name, categories, unsorted, id } = tierlistData;
   const [title, setTitle] = useState(name);
 
-  const saveToFirebase = () => {
+  const saveToFirebase = async () => {
     // Save current session
+    let copyOfTierlistData = JSON.parse(JSON.stringify(tierlistData));
+
+    let res = await saveTierlist(copyOfTierlistData);
+    console.log(res);
   };
 
   return (
@@ -148,7 +151,7 @@ export default function TierlistContainer() {
                   >
                     <div className="text-6xl">
                       <DeleteIcon fontSize="inherit" />
-                      </div>
+                    </div>
                     {provided.placeholder}
                     {/* Invisible element to keep droppable open */}
                   </div>

@@ -1,67 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuid } from "uuid";
-
-
-/**
- * Data type for tierlists
- */
-export type TierlistObj = {
-  name: string;
-  categories: Category[];
-  unsorted: Category;
-  id: string;
-};
-
-/**
- * Represents each row on the tierlist
- */
-export type Category = {
-  id: string;
-  name: string;
-  content: Item[];
-};
-
-/**
- * Creates a Category object
- * @param id unique identifier for category
- * @param name name of category (i.e. 'S')
- * @param content holds the items inside the category
- * @returns Category
- */
-export const CategoryObj = (
-  id: string,
-  name: string,
-  content: Item[] = []
-): Category => ({ id, name, content });
-
-/**
- * This is the individual element inside the tierlist
- */
-export type Item = {
-  id: string;
-  URL: string;
-  caption: string;
-};
-
-/**
- * Creates an Item object
- * @param id unique identifier for item
- * @param URL location that item is stored inside the browser
- * @param caption text description of item
- * @returns Item
- */
-export function ItemObj(id: string, URL: string, caption = ""): Item {
-  return { id, URL, caption };
-}
-
-/**
- * Object that stores data grouped by tierlist
- * Key: tierlist name
- * Object: TierlistObj
- */
-export type TierlistMap = {
-  [name: string]: TierlistObj;
-};
+import { TierlistObj,CategoryObj,ItemObj,TierlistMap,Item } from "./types";
 
 const createNewTierlist = (name: string): TierlistObj => {
   return {
@@ -110,6 +49,14 @@ export const tierlistStore = createSlice({
   name: "tierlistStore",
   initialState,
   reducers: {
+    /**
+     * Loads tierlist data from Firestore (called only if tierlist instance exists in Firestore)
+     * @param state current tierlist state
+     * @param action tierlist state obtained from Firestore
+     */
+    getTierlistFromFirebase: (state,action) => {
+      state[action.payload.name] = action.payload;
+    },
     /* Action.payload is null */
     createTierlist: (state, action) => {
       let counter = 1;
@@ -183,7 +130,7 @@ export const tierlistStore = createSlice({
         });
       } else {
         currTierlist.unsorted.content.splice(newIndex, 0, elm!);
-        console.log("RAN");
+        
       }
     },
     /* Action.payload contains  */
@@ -209,6 +156,7 @@ export const tierlistStore = createSlice({
 });
 
 export const {
+  getTierlistFromFirebase,
   createTierlist,
   renameTierlist,
   addItems,

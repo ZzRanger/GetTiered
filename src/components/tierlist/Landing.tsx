@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 import { v4 as uuid } from "uuid";
+import { RootState } from "../redux/store";
 
 export default function LandingPage() {
-    const routeID = uuid();
+  const activeTierlist = useSelector(
+    (state: RootState) => state.currentSession.active
+  );
+  const routeID = useSelector((state: RootState) => state.tierlistStore[activeTierlist].id);
   const router = useRouter();
   return (
     <div className="flex flex-row ">
@@ -19,15 +24,15 @@ export default function LandingPage() {
             <li>Share using a link</li>
           </ul>
         </div>
-<div className="flex justify-center">
-        <button
-          className="text-4xl mb-2 bg-blue-400 rounded-xl w-60 h-20 hover:shadow-2xl hover:bg-blue-700"
-          onClick={() => router.push(`/create/${routeID}`)}
-        >
-          {" "}
-          Create Tierlist{" "}
-                  </button>
-                  </div>
+        <div className="flex justify-center">
+          <button
+            className="text-4xl mb-2 bg-blue-400 rounded-xl w-60 h-20 hover:shadow-2xl hover:bg-blue-700"
+            onClick={() => router.push(`/create/${routeID}`)}
+          >
+            {" "}
+            Create Tierlist{" "}
+          </button>
+        </div>
       </div>
       <video
         className="border-4 w-7/12 h-screen object-cover"
