@@ -1,7 +1,5 @@
 import { Droppable } from "react-beautiful-dnd";
-import FileUploader from "../FileUpload";
-import MyDropzone from "../MyDropzone";
-import { Item } from "../redux/reducers/tierlist";
+import { Item } from "../redux/reducers/types";
 import TierlistCard from "./TierlistCard";
 
 /**

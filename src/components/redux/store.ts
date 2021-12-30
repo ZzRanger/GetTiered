@@ -1,12 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import themeModeReducer from './reducers/darkMode';
 import tierlistStoreReducer from './reducers/tierlist';
 import currentSessionReducer from './reducers/currentSession';
-import { composeWithDevTools } from 'redux-devtools-extension';
 
 export const store = configureStore({
   reducer: {
-    themeMode: themeModeReducer,
     tierlistStore: tierlistStoreReducer,
     currentSession: currentSessionReducer,
   },

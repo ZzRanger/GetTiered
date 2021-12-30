@@ -1,9 +1,6 @@
 import { doc, getDoc, getFirestore, setDoc } from "@firebase/firestore";
-import { Category } from "@mui/icons-material";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { useDispatch } from "react-redux";
-import { getTierlistFromFirebase } from "../redux/reducers/tierlist";
-import { Item, TierlistObj } from "../redux/reducers/types";
+import {  TierlistObj } from "../redux/reducers/types";
 
 // TODO: Modularize this code
 

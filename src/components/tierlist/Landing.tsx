@@ -1,7 +1,5 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { v4 as uuid } from "uuid";
 import { RootState } from "../redux/store";
 
 export default function LandingPage() {

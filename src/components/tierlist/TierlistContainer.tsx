@@ -3,7 +3,6 @@ import {
   DragDropContext,
   Droppable,
   DropResult,
-  OnDragEndResponder,
 } from "react-beautiful-dnd";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
@@ -17,7 +16,7 @@ import { changeSession } from "../redux/reducers/currentSession";
 import MyDropzone from "../MyDropzone";
 import { getFirestore } from "@firebase/firestore";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { loadFromFirebase, saveTierlist } from "../firebase/firebase";
+import { saveTierlist } from "../firebase/firebase";
 
 export default function TierlistContainer() {
   const db = getFirestore();

@@ -1,7 +1,6 @@
 import { Draggable, DraggableStateSnapshot } from "react-beautiful-dnd";
-import { Item } from "../redux/reducers/tierlist";
 import Image from "next/image";
-import test from "./default1.jpeg";
+import { Item } from "../redux/reducers/types";
 
 export type Props = {
   item: Item;
