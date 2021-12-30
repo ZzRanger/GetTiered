@@ -33,7 +33,7 @@ export default function LandingPage() {
         </div>
       </div>
       <video
-        className="border-4 w-7/12 h-screen object-cover"
+        className="w-7/12 h-screen object-cover object-left-top"
         id="background-video"
         autoPlay
         loop
@@ -41,12 +41,11 @@ export default function LandingPage() {
         poster="https://assets.codepen.io/6093409/river.jpg"
       >
         <source
-          src="https://assets.codepen.io/6093409/river.mp4"
+          src="./recording.mp4"
           type="video/mp4"
         />
       </video>
-      {/* <div className="h-10 border-4">Test</div>
-      <div className="h-10 border-4"> Test2 </div> */}
+      
     </div>
   );
 }

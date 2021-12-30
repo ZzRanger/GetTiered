@@ -6,7 +6,6 @@ import Landing from "../components/tierlist/Landing";
 export default function Home() {
   return (
     <div className="">
-  
       <Header />
       <Landing />
     </div>

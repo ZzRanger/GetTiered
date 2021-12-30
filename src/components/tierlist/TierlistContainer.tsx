@@ -82,7 +82,7 @@ export default function TierlistContainer() {
   };
 
   return (
-    <div className="py-10 px-40">
+    <div className="py-10 px-60">
       <div className="flex flex-row justify-between">
         <input
           type="text"
