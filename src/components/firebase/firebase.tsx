@@ -1,6 +1,6 @@
 import { doc, getDoc, getFirestore, setDoc } from "@firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import {  TierlistObj } from "../redux/reducers/types";
+import { TierlistObj } from "../redux/reducers/types";
 
 // TODO: Modularize this code
 
@@ -62,7 +62,9 @@ export async function saveTierlist(tierlistData: TierlistObj) {
   // Upload data to firebase
   const db = getFirestore();
   await setDoc(doc(db, "tierlists", tierlistData.id), tierlistData).then(() =>
-    alert("FINISHED")
+    alert(
+      "Tierlist has been saved! \n Access it againg using the URL above"
+    )
   );
 
   return Promise.resolve("Success");
@@ -73,11 +75,10 @@ export async function saveTierlist(tierlistData: TierlistObj) {
  */
 export async function loadFromFirebase(id: string) {
   // TODO: Given page ID, get corresponding document from firebase
-    const db = getFirestore();
+  const db = getFirestore();
 
-    const docRef = doc(db,"tierlists",id);
-    
-    const docSnap = await getDoc(docRef);
-    return docSnap;
-    
+  const docRef = doc(db, "tierlists", id);
+
+  const docSnap = await getDoc(docRef);
+  return docSnap;
 }
