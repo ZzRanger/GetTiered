@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/globals.css";
 import type { AppProps } from "next/app";
-import Header from "../components/layouts/header/header";
-import Footer from "../components/layouts/Footer/footer";
 import { store } from "../components/redux/store";
 import { Provider } from "react-redux";
 import { initializeApp } from "firebase/app";
