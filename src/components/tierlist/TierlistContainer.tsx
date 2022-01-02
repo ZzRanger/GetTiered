@@ -74,13 +74,17 @@ export default function TierlistContainer() {
   );
 
   const { name, categories, unsorted, id } = tierlistData;
-  const [title, setTitle] = useState(name);
+  const [title, setTitle] = useState(activeTierlist);
 
   const saveToFirebase = async () => {
     // Save current session
     let copyOfTierlistData = JSON.parse(JSON.stringify(tierlistData));
     saveTierlist(copyOfTierlistData);
   };
+
+  useEffect(() => {
+    setTitle(name);
+  },[activeTierlist]);
 
   return (
     <div className="py-10 px-60">
@@ -102,7 +106,8 @@ export default function TierlistContainer() {
           spellCheck={false}
           className="bg-transparent text-6xl focus:outline-none "
           value={title}
-          onChange={(event) => setTitle(event.target.value)}
+          onChange={(event) => setTitle(event.target.value)
+          }
         />
         <button
           className="text-4xl mb-2 bg-gray-700 rounded-2xl px-4 hover:shadow-2xl hover:bg-gray-900"
