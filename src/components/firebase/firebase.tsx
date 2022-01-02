@@ -8,7 +8,6 @@ import { TierlistObj } from "../redux/reducers/types";
  * Save tierlist to firebase once user clicks "Save"
  */
 export async function saveTierlist(tierlistData: TierlistObj) {
-  // TODO: Upload photos to GCP
   const storage = getStorage();
 
   // Iterate through all images in each category
@@ -21,12 +20,20 @@ export async function saveTierlist(tierlistData: TierlistObj) {
         let item = content[j];
         const storageRef = ref(storage, item.id + ".jpg");
         // Upload photo to Google Cloud Storage
-        await fetch(item.URL)
-          .then((res) => res.blob())
-          .then(
-            (blob) => new File([blob], item.id + ".jpg", { type: "image/jpeg" })
-          )
-          .then((file) => uploadBytes(storageRef, file).then((snapshot) => {}));
+
+        await getDownloadURL(storageRef)
+          .then(() => console.log("Do nothing"))
+          .catch(async () => {
+            await fetch(item.URL)
+              .then((res) => res.blob())
+              .then(
+                (blob) =>
+                  new File([blob], item.id + ".jpg", { type: "image/jpeg" })
+              )
+              .then((file) =>
+                uploadBytes(storageRef, file).then((snapshot) => {})
+              );
+          });
         // Replace local URL with Storage URL
         let url = await getDownloadURL(storageRef);
         item.URL = url;
@@ -42,15 +49,23 @@ export async function saveTierlist(tierlistData: TierlistObj) {
     if (content.length > 0) {
       for (let j = 0; j < content.length; j++) {
         let item = content[j];
-        const storageRef = ref(storage, item.id + ".jpg");
-        // Upload photo to Google Cloud Storage
 
-        await fetch(item.URL)
-          .then((res) => res.blob())
-          .then(
-            (blob) => new File([blob], item.id + ".jpg", { type: "image/jpeg" })
-          )
-          .then((file) => uploadBytes(storageRef, file).then((snapshot) => {}));
+        // Check if item in Google Cloud Storage already
+        // Replace local URL with Storage URL
+        const storageRef = ref(storage, item.id + ".jpg");
+        await getDownloadURL(storageRef)
+          .then(() => console.log("Do nothing"))
+          .catch(async () => {
+            await fetch(item.URL)
+              .then((res) => res.blob())
+              .then(
+                (blob) =>
+                  new File([blob], item.id + ".jpg", { type: "image/jpeg" })
+              )
+              .then((file) =>
+                uploadBytes(storageRef, file).then((snapshot) => {})
+              );
+          });
         // Replace local URL with Storage URL
         let url = await getDownloadURL(storageRef);
         item.URL = url;
@@ -62,9 +77,7 @@ export async function saveTierlist(tierlistData: TierlistObj) {
   // Upload data to firebase
   const db = getFirestore();
   await setDoc(doc(db, "tierlists", tierlistData.id), tierlistData).then(() =>
-    alert(
-      "Tierlist has been saved! \n Access it againg using the URL above"
-    )
+    alert("Tierlist has been saved! \n Access it againg using the URL above")
   );
 
   return Promise.resolve("Success");
@@ -76,6 +89,8 @@ export async function saveTierlist(tierlistData: TierlistObj) {
 export async function loadFromFirebase(id: string) {
   // TODO: Given page ID, get corresponding document from firebase
   const db = getFirestore();
+
+  console.log(id);
 
   const docRef = doc(db, "tierlists", id);
 

@@ -5,6 +5,7 @@ import { RootState } from "../redux/store";
 import CardContainer from "./CardContainer";
 import {
   deleteImage,
+  getTierlistFromFirebase,
   renameTierlist,
   updateImageTier,
 } from "../redux/reducers/tierlist";
@@ -12,7 +13,8 @@ import { changeSession } from "../redux/reducers/currentSession";
 import MyDropzone from "../MyDropzone";
 import { getFirestore } from "@firebase/firestore";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { saveTierlist } from "../firebase/firebase";
+import { loadFromFirebase, saveTierlist } from "../firebase/firebase";
+import { useRouter } from "next/router";
 
 export default function TierlistContainer() {
   const color = [
@@ -25,13 +27,14 @@ export default function TierlistContainer() {
 
   const db = getFirestore();
   const [ready, setReady] = useState(false);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (process.browser) {
       setReady(true);
     }
   }, []);
+
+  const dispatch = useDispatch();
 
   // useEffect(() => console.log(tierlistData, title));
   const onDragEnd = (DragObject: DropResult) => {
@@ -76,9 +79,7 @@ export default function TierlistContainer() {
   const saveToFirebase = async () => {
     // Save current session
     let copyOfTierlistData = JSON.parse(JSON.stringify(tierlistData));
-
-    let res = await saveTierlist(copyOfTierlistData);
-    console.log(res);
+    saveTierlist(copyOfTierlistData);
   };
 
   return (
